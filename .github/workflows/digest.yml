@@ -2,8 +2,8 @@ name: Internship Digest
 
 on:
   schedule:
-    - cron: '30 4 * * *'   # 10:00 AM IST
-    - cron: '30 16 * * *'  # 10:00 PM IST
+    - cron: '0 15 * * *'   # 10:00 AM EST
+    - cron: '0 3 * * *'    # 10:00 PM EST
   workflow_dispatch:        # lets you trigger manually from GitHub UI
 
 jobs:
