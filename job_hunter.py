@@ -488,13 +488,15 @@ def run_digest():
 # SCHEDULER
 # ─────────────────────────────────────────────
 if __name__ == "__main__":
-    log.info("Job Hunter started. Scheduled at 10:00 AM and 10:00 PM daily.")
-    schedule.every().day.at("10:00").do(run_digest)
-    schedule.every().day.at("22:00").do(run_digest)
-
-    # Uncomment to run once immediately on startup (useful for testing):
-    # run_digest()
-
-    while True:
-        schedule.run_pending()
-        time.sleep(30)
+    import sys
+    if "--once" in sys.argv:
+        # GitHub Actions mode: run once and exit
+        run_digest()
+    else:
+        # Local mode: run on schedule forever
+        log.info("Scheduler started. Runs at 10:00 AM and 10:00 PM daily.")
+        schedule.every().day.at("10:00").do(run_digest)
+        schedule.every().day.at("22:00").do(run_digest)
+        while True:
+            schedule.run_pending()
+            time.sleep(30)
